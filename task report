@@ -1,0 +1,199 @@
+import javax.swing.JOptionPane;
+
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+
+/**
+ *
+ * @author RC_Student_lab
+ */
+public class Task_Report {
+    
+    private String taskID[] = null;
+private String name[] = null;
+private String status[] = null;
+private double number[] = null;
+private int taskduration[] = null;
+private String Description[] = null;
+private String developer[] = null;
+
+    public String[] getTaskID() {
+        return taskID;
+    }
+
+    public void setTaskID(String[] taskID) {
+        this.taskID = taskID;
+    }
+
+    public String[] getName() {
+        return name;
+    }
+
+    public void setName(String[] name) {
+        this.name = name;
+    }
+
+    public String[] getStatus() {
+        return status;
+    }
+
+    public void setStatus(String[] status) {
+        this.status = status;
+    }
+
+    public double[] getNumber() {
+        return number;
+    }
+
+    public void setNumber(double[] number) {
+        this.number = number;
+    }
+
+    public int[] getTaskduration() {
+        return taskduration;
+    }
+
+    public void setTaskduration(int[] taskduration) {
+        this.taskduration = taskduration;
+    }
+
+    public String[] getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String[] Description) {
+        this.Description = Description;
+    }
+
+    public String[] getDeveloper() {
+        return developer;
+    }
+
+    public void setDeveloper(String[] developer) {
+        this.developer = developer;
+    }
+    
+    public void S_Done() {
+       boolean itemFound = false;
+        StringBuilder sb = new StringBuilder();
+        sb.append("TASK REPORT of Tasks that are DONE\n" + 
+                  "###################################################\n");
+        for (int b = 0; b < this.status.length; b++) {
+            if (this.status[b].equals("Done")) {
+                sb.append("Developer: " + this.developer[b] + "\n" +
+                          "Task Name: " + this.name[b] + "\n" +
+                          "Task Duration: " + this.taskduration[b] + "\n" +
+                          "Status: " + this.status[b] + "\n" +
+                          "###################################################\n");
+                itemFound = true;
+            } 
+        }
+        if (itemFound) {
+            JOptionPane.showMessageDialog(null, sb);
+        } else{
+            JOptionPane.showMessageDialog(null, "No tasks have been DONE.");
+        } 
+    }
+    
+    public void L_duration() {
+        int max = this.taskduration[0];
+        int v = 0;
+        for (int b = 0; b < this.status.length; b++) {
+            if (this.taskduration[b] > max) {
+                max = this.taskduration[b];
+                v = b;
+            }
+        }
+        JOptionPane.showMessageDialog(null, "Developer: " + this.developer[v] + "\n" +
+                                            "Duration: " + this.taskduration[v] );
+    }
+    
+    public void searchT_Name() {
+        String taskSearch = JOptionPane.showInputDialog(null, "Enter the name of the task you want to search for:");
+        boolean itemFound = false;
+        for (int j = 0; j < this.name.length; j++) {
+            if (taskSearch.equalsIgnoreCase(this.name[j])) {  
+                JOptionPane.showMessageDialog(null, "Task Name: " + this.name[j] + "\n" + 
+                                                    "Developer: " + this.developer[j] + "\n" + 
+                                                    "Task Status : " + this.status[j]);
+                itemFound = true;
+                break;
+            } 
+        }
+        if (!itemFound) {
+            JOptionPane.showMessageDialog(null, "The task name you entered cannot be found!");
+       }
+    }
+    
+    public void seachTaskDeveloper() {
+        String devSearch = JOptionPane.showInputDialog(null, "Enter the name of the developer you want to search for:");
+        boolean itemFound = false;
+        StringBuilder sb = new StringBuilder();
+        sb.append("TASK REPORT of Tasks that are assigned to " + devSearch + "\n" + 
+                  "###################################################\n");
+        for (int u = 0; u < this.developer.length; u++) {
+            if (devSearch.equalsIgnoreCase(this.developer[u])) {
+                sb.append("Task Name: " + this.name[u] + "\n" + 
+                          "Task Status : " + this.status[u] + "\n" +
+                          "###################################################\n");
+                itemFound = true;
+            } 
+        }
+        if (itemFound) {
+            JOptionPane.showMessageDialog(null, sb);
+        } else {
+            JOptionPane.showMessageDialog(null, "The developer name you entered cannot be found!\n");
+       }
+    }
+    //Deleting task
+    public void deleteTask() {
+        if (this.name.length > 0) {
+            String remove = JOptionPane.showInputDialog(null, "Enter the name of the task you want to delete.");
+            
+            String newDeveloper[] = new String[this.developer.length-1];
+            String newTaskNames[] = new String[this.name.length-1];
+            String newTaskId[] = new String[this.taskID.length-1];
+            int newDuration[] = new int[this.taskduration.length-1];
+            String newStatus[] = new String[this.status.length-1];
+            int bNew = 0;
+
+                for (int f = 0; f < this.name.length; f++) {
+                    if (remove.equalsIgnoreCase(this.name[f])) {
+                        if (!this.name[f].equalsIgnoreCase(remove)) {  
+                            newTaskNames[bNew] = this.name[f];
+                            newDeveloper[bNew] = this.developer[f];
+                            newTaskId[bNew] = this.taskID[f];
+                            newDuration[bNew] = this.taskduration[f];
+                            newStatus[bNew] = this.status[f];
+                            bNew++;
+                        } 
+                    }
+                }
+            this.developer = newDeveloper;
+            this.name = newTaskNames;
+            this.taskID = newTaskId;
+            this.taskduration = newDuration;
+            this.status = newStatus; 
+        }
+    }
+    //Display report 
+    public void displayReport() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("REPORT for ALL TASKS\n" +
+                  "###################################################\n");
+        for (int p = 0; p < this.developer.length; p++) {
+           sb.append("Task Name: " + this.name[p] + "\n" + 
+                     "Developer: " + this.developer[p] + "\n" + 
+                     "Task Status : " + this.status[p] + "\n" +
+                     "Task ID: " + this.taskID[p] + "\n" +
+                     "Task Duration: " + this.taskduration[p] + "\n" +
+                     "###################################################\n");
+        }
+        JOptionPane.showMessageDialog(null, sb);
+    }
+}
+
+    
+
