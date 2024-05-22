@@ -1,0 +1,359 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+   import java.util.ArrayList;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
+
+
+/**
+ *
+ * @author RC_Student_lab
+ */
+public class Task {
+    
+
+    public String getTaskID() {
+        return taskID;
+    }
+
+    public void setTaskID(String taskID) {
+        this.taskID = taskID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public double getNumber() {
+        return number;
+    }
+
+    public void setNumber(double number) {
+        this.number = number;
+    }
+
+    public int getTaskduration() {
+        return taskduration;
+    }
+
+    public void setTaskduration(int taskduration) {
+        this.taskduration = taskduration;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String Description) {
+        this.Description = Description;
+    }
+
+    public String getDeveloper() {
+        return developer;
+    }
+
+    public void setDeveloper(String developer) {
+        this.developer = developer;
+    }
+
+    public int getOption() {
+        return option;
+    }
+
+    public void setOption(int option) {
+        this.option = option;
+    }
+
+    public int getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(int tasks) {
+        this.tasks = tasks;
+    }
+
+    public int getStatusOption() {
+        return statusOption;
+    }
+
+    public void setStatusOption(int statusOption) {
+        this.statusOption = statusOption;
+    }
+
+    public int getAccumulated() {
+        return accumulated;
+    }
+
+    public void setAccumulated(int accumulated) {
+        this.accumulated = accumulated;
+    }
+
+private int statusOption = 0;
+int accumulated = 0;
+private int option = 0;
+private int tasks = 0;
+private String taskID;
+private String name;
+private String status;
+private double number;
+private int taskduration;
+private String Description;
+private String developer;
+
+public boolean exploreTasks(ArrayList<Task> tasks) {
+    String taskID = JOptionPane.showInputDialog("Enter task id to establish:");
+    Task[] _tasks = new Task[tasks.size()];
+    tasks.toArray(_tasks);
+
+    boolean establish = false;
+    if (_tasks.length > 0) {
+        for (Task _task : _tasks) {
+            if (_task.taskID.equalsIgnoreCase(taskID)) {
+                String message = "Task ID: " + _task.taskID + "\nTask name: " + _task.name
+                        + "\nTask status: " + _task.status + "\nProduct warranty: " + _task.Description
+                        + "\nTask number: " + _task.number + "\nTask duration: " + _task.taskduration
+                        + "\nTask developer: " + _task.developer;
+                JOptionPane.showMessageDialog(null, message);
+                establish = true;
+            }
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "No tasks established");
+        establish = true;
+    }
+    return establish;
+}
+
+public void CaptureTasks() {
+    taskID = JOptionPane.showInputDialog("Enter the Task ID:");
+    name = JOptionPane.showInputDialog("Enter the Task name:");
+    choosestatus();
+    chooseDescription();
+    number = Double.parseDouble(JOptionPane.showInputDialog("Enter the task number:"));
+    taskduration = Integer.parseInt(JOptionPane.showInputDialog("Enter the task duration :"));
+    developer = JOptionPane.showInputDialog("Enter the developer name:");
+}
+public void CaptureTask(){
+    taskID = JOptionPane.showInputDialog("Enter the Task ID:");
+    name = JOptionPane.showInputDialog("Enter the Task name:");
+    choosestatus();
+    chooseDescription();
+    number = Double.parseDouble(JOptionPane.showInputDialog("Enter number for: " + name));
+    taskduration = Integer.parseInt(JOptionPane.showInputDialog("Enter duration for: " + name));
+    developer = JOptionPane.showInputDialog("Enter the Developer: " + name);
+}
+public void choosestatus(){
+    Object[] options = {"TO DO", "DOING", "DONE"};
+    int chosen = JOptionPane.showOptionDialog(null, "Choose the task status:",
+            "", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+    switch (chosen) {
+        case 0:
+            status = "TO DO";
+            break;
+        case 1:
+            status = "DOING";
+            break;
+        case 2:
+            status = "DONE";
+            break;
+        default:
+            JOptionPane.showMessageDialog(null, "please choose the number next to your choice");
+            choosestatus();
+            break;
+    }
+}
+public void chooseDescription() {
+    int difficulty = JOptionPane.showOptionDialog(
+        null, 
+        "Choose task description:",
+        "Difficulty Level",
+        JOptionPane.DEFAULT_OPTION,
+        JOptionPane.PLAIN_MESSAGE,
+        null,
+        new String[] { "Easy", "Difficult" },
+        "Easy"
+    );
+    Description = difficulty == 0 ? "Easy" : "Difficult";
+}
+public void updateProduct(ArrayList<Task> tasks) {
+    String code = JOptionPane.showInputDialog("Enter the task id to update:");
+    Task[] _tasks = new Task[tasks.size()];
+    tasks.toArray(_tasks);
+
+    if (_tasks.length > 0) {
+        for (Task _task : _tasks) {
+            if (_task.taskID.equalsIgnoreCase(code)) {
+                int choice = JOptionPane.showConfirmDialog(null, "Update the warranty?", "Update Task", JOptionPane.YES_NO_OPTION);
+                if (choice == JOptionPane.YES_OPTION) {
+                    String warranty = JOptionPane.showInputDialog("Enter new product warranty:");
+                    _task.setWarrenty(warranty);
+                }
+
+                int numberChoice = JOptionPane.showConfirmDialog(null, "Update the number?", "Update task", JOptionPane.YES_NO_OPTION);
+                if (numberChoice == JOptionPane.YES_OPTION) {
+                    double number = Double.parseDouble(JOptionPane.showInputDialog("Enter new task number:"));
+                    _task.setnumber(number);
+                }
+
+                int taskdurationChoice = JOptionPane.showConfirmDialog(null, "Update the task duration?", "Update task", JOptionPane.YES_NO_OPTION);
+                if (taskdurationChoice == JOptionPane.YES_OPTION) {
+                    int taskduration = Integer.parseInt(JOptionPane.showInputDialog("Enter new TASK Duration:"));
+                    _task.taskduration(taskduration);
+                }
+
+                JOptionPane.showMessageDialog(null, "TASK updated successfully.");
+            }
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "No TASK to update.");
+    }
+}
+public void removeTasks(ArrayList<Task> tasks) {
+    String code = JOptionPane.showInputDialog("Enter the Task ID to be deleted:");
+    Task[] _tasks = new Task[tasks.size()];
+    tasks.toArray(_tasks);
+
+    if (_tasks.length > 0) {
+        for (Task _task : _tasks) {
+            if (_task.taskID.equalsIgnoreCase(code)) {
+                tasks.remove(_task);
+                JOptionPane.showMessageDialog(null, "Task deleted successfully.");
+                break;
+            }
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "No TASKS to delete.");
+    }
+}
+
+public void updateTasks(ArrayList<Task> tasks) {
+    String _code = JOptionPane.showInputDialog("Enter task ID to update:");
+    Task[] _tasks = new Task[tasks.size()];
+    tasks.toArray(_tasks);
+
+    if (_tasks.length > 0) {
+        for (Task _task : _tasks) {
+            if (_task.taskID.equalsIgnoreCase(_code)) {
+                int _choice = JOptionPane.showConfirmDialog(null, "Update the warranty?", "Product Update", JOptionPane.YES_NO_OPTION);
+                if (_choice == JOptionPane.YES_OPTION) {
+                    String newDescription = JOptionPane.showInputDialog("Enter the new product warranty:");
+                    _task.Description = newDescription;
+                }
+
+                int _numberchoice = JOptionPane.showConfirmDialog(null, "Update the number?", "Task Update", JOptionPane.YES_NO_OPTION);
+                if (_numberchoice == JOptionPane.YES_OPTION) {
+                    String newnumber = JOptionPane.showInputDialog("Enter new task number:");
+                    _task.number = Double.parseDouble(newnumber);
+                }
+
+                int taskduration = JOptionPane.showConfirmDialog(null, "Update the task duration?", "Task Update", JOptionPane.YES_NO_OPTION);
+                if (taskduration == JOptionPane.YES_OPTION) {
+                    String newtaskduration = JOptionPane.showInputDialog("Enter new task duration:");
+                    _task.taskduration = Integer.parseInt(newtaskduration);
+                }
+
+                JOptionPane.showMessageDialog(null, "Task updated successfully.");
+            }
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "No tasks to delete.");
+    }
+}
+
+public void removetask(ArrayList<Task> tasks) {
+    String taskID = JOptionPane.showInputDialog("Enter the task ID to be deleted:");
+    Task[] _tasks = new Task[tasks.size()];
+    tasks.toArray(_tasks);
+
+    if (_tasks.length > 0) {
+        for (int i = 0; i < _tasks.length; i++) {
+            if (_tasks[i].taskID.equalsIgnoreCase(taskID)) {
+                tasks.remove(i);
+                JOptionPane.showMessageDialog(null, "Task removed successfully.");
+            }
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "No products to delete.");
+    }
+}
+
+public void savetask(Task task, ArrayList<Task> tasks) {
+    tasks.add(task);
+}
+
+public void display(ArrayList<Task> tasks) {
+    Task[] _tasks = new Task[tasks.size()];
+    tasks.toArray(_tasks);
+    StringBuilder sb = new StringBuilder();
+
+    for (int i = 0; i < tasks.size(); i++) {
+        sb.append("*********************************************\n")
+          .append("Task ID: ").append(_tasks[i].taskID).append("\n")
+          .append("Task name: ").append(_tasks[i].name).append("\n")
+          .append("Task status: ").append(_tasks[i].status).append("\n")
+          .append("Task number: ").append(_tasks[i].number).append("\n")
+          .append("Task Description: ").append(_tasks[i].Description).append("\n")
+          .append("Task duration: ").append(_tasks[i].taskduration).append("\n")
+          .append("Developer details: ").append(_tasks[i].developer).append("\n")
+          .append("**********************************************\n");
+    }
+    JOptionPane.showMessageDialog(null, sb.toString());
+}
+
+//Create the task ID
+    public String TaskID() {
+        this.taskID = Character.toString(this.name.charAt(0)) + Character.toString(this.name.charAt(1)) + ":" + this.number + ":"
+                + Character.toString(this.developer.charAt(this.developer.length() - 3))
+                + Character.toString(this.developer.charAt(this.developer.length() - 2))
+                + Character.toString(this.developer.charAt(this.developer.length() - 1));
+        this.setTaskID(taskID);
+        return this.taskID.toUpperCase();
+    }
+    
+public String TaskDetails() {
+        String taskdetail = "Task status: " + this.status + "\n"
+                + "Developer details: " + this.developer + "\n"
+                + "Task number: " + this.number + "\n"
+                + "Task name: " + this.name + "\n"
+                + "Task description: " + this.Description + "\n"
+                + "Task ID: " + TaskID() + "\n"
+                + "Task duration: " + this.taskduration + " Hours\n";
+        return taskdetail;
+    }
+
+public void exitapplication() {
+    System.exit(0);
+}
+
+    private void taskduration(int taskduration) {
+        throw new UnsupportedOperationException("Not supported yet."); 
+//To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void setnumber(double number) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void setWarrenty(String warranty) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+
+}
+
+    
+
